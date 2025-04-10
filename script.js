@@ -106,3 +106,18 @@ function setupPagination() {
     updatePaginationButtons();
 }
 
+function updatePaginationButtons() {
+    const totalPages = Math.ceil(characters.length / charactersPerPage);
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+    const pageButtons = document.querySelectorAll('.page-numbers button');
+
+    prevButton.disabled = currentPage === 1;
+    nextButton.disabled = currentPage === totalPages;
+
+    pageButtons.forEach(button => {
+        button.classList.toggle('active', parseInt(button.innerText) === currentPage);
+    });
+}
+
+fetchCharacters();
