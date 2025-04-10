@@ -48,3 +48,20 @@ function validField(field, fallback) {
     return 'Sin información';
 }
 
+function extraInfo(character) {
+    const hasClan = character.clan && character.clan.toLowerCase() !== 'unknown';
+    const hasVillage = character.village && character.village.toLowerCase() !== 'unknown';
+
+    if (!hasClan || !hasVillage) {
+        if (character.chakraNature) {
+            if (Array.isArray(character.chakraNature)) {
+                return character.chakraNature.join(', ');
+            }
+            return character.chakraNature;
+        }
+        return 'JSON maluco ';
+    }
+
+    return '';
+}
+
