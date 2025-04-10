@@ -14,3 +14,27 @@ async function fetchCharacters() {
     }
 }
 
+function displayCharacters(page) {
+    const container = document.getElementById('characters-container');
+    const start = (page - 1) * charactersPerPage;
+    const end = start + charactersPerPage;
+    const paginatedCharacters = characters.slice(start, end);
+
+    container.innerHTML = '';
+
+    paginatedCharacters.forEach(character => {
+        const card = document.createElement('div');
+        card.className = 'character-card';
+        card.innerHTML = `
+            <img src="${character.image ? character.image : (character.images && character.images.length > 0 ? character.images[0] : 'https://i.ibb.co/Lk2L4bV/errorimg.jpg')}" alt="${character.name}" onerror="this.src='https://i.ibb.co/Lk2L4bV/errorimg.jpg';">
+            <div class="character-info">
+                <h3>${character.name}</h3>
+                <p>Clan: ${validField(character.clan, character.personal?.clan)}</p>
+                <p>Aldea: ${validField(character.village, Array.isArray(character.personal?.affiliation) ? character.personal.affiliation[0] : character.personal?.affiliation)}</p>
+                <p>Tipo de Chakra: ${extraInfo(character)}</p>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
