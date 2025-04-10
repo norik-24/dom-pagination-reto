@@ -65,3 +65,44 @@ function extraInfo(character) {
     return '';
 }
 
+function setupPagination() {
+    const totalPages = Math.ceil(characters.length / charactersPerPage);
+    const paginationContainer = document.getElementById('page-numbers');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+
+    paginationContainer.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement('button');
+        button.innerText = i;
+        button.classList.toggle('active', i === currentPage);
+
+        button.addEventListener('click', () => {
+            currentPage = i;
+            displayCharacters(currentPage);
+            updatePaginationButtons();
+        });
+
+        paginationContainer.appendChild(button);
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            displayCharacters(currentPage);
+            updatePaginationButtons();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            displayCharacters(currentPage);
+            updatePaginationButtons();
+        }
+    });
+
+    updatePaginationButtons();
+}
+
