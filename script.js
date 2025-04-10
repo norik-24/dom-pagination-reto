@@ -38,3 +38,13 @@ function displayCharacters(page) {
     });
 }
 
+function validField(field, fallback) {
+    if (field && typeof field === 'string' && field.toLowerCase() !== 'unknown') {
+        return field;
+    }
+    if (fallback && typeof fallback === 'string' && fallback.toLowerCase() !== 'unknown') {
+        return fallback;
+    }
+    return 'Sin información';
+}
+
